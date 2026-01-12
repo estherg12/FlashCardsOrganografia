@@ -1,0 +1,156 @@
+:root { 
+            --bg-color: #0f172a; 
+            --card-bg: #1e293b; 
+            --accent: #10b981; 
+            --wrong: #ef4444; 
+            --text: #f8fafc; 
+            --secondary: #94a3b8;
+            --blue: #3b82f6;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            background: linear-gradient(to right, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Aviso de carga */
+        .loading-notice { 
+            background: rgba(59, 130, 246, 0.2); 
+            border: 1px solid #3b82f6; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            font-size: 0.85rem; 
+            margin-bottom: 20px; 
+            max-width: 500px; 
+            text-align: center;
+            color: #93c5fd;
+        }
+
+        .external-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .external-link:hover { color: var(--accent); }
+
+        /* Filtro */
+        select {
+            background: var(--card-bg);
+            color: white;
+            border: 2px solid #334155;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            margin-bottom: 25px;
+            outline: none;
+        }
+
+        /* Contenedor Flashcard */
+        .flashcard-container {
+            perspective: 1200px;
+            width: 100%;
+            max-width: 500px;
+            height: 380px;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+
+        .flashcard {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped { transform: rotateY(180deg); }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .back { transform: rotateY(180deg); padding: 25px; text-align: center; box-sizing: border-box; }
+
+        img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Botones y Estadísticas */
+        .btn-group { display: flex; gap: 15px; margin-top: 25px; }
+        
+        button {
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        button:active { transform: scale(0.95); }
+        .btn-correct { background: var(--accent); color: white; }
+        .btn-wrong { background: var(--wrong); color: white; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid #334155;
+            padding: 12px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .stat-val { display: block; font-size: 1.2rem; font-weight: bold; }
+        .stat-label { font-size: 0.6rem; color: var(--secondary); text-transform: uppercase; letter-spacing: 1px; }
+
+        .badge {
+            background: #334155;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            margin-top: 10px;
+            color: var(--accent);
+        }
