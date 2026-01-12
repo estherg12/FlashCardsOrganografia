@@ -167,7 +167,7 @@
         imgElement.onerror = () => {
             console.error("Error cargando desde tu servidor Render");
             // Intento de recarga si falla
-            setTimeout(() => { imgElement.src = newSrc + "_retry"; }, 1000);
+            //setTimeout(() => { imgElement.src = newSrc + "_retry"; }, 1000);
         };
 
         document.getElementById('organName').innerText = card.name;
