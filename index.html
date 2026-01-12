@@ -351,6 +351,8 @@
     
 
     let stats = { c: 0, w: 0, r: 0 };
+    let currentPool = [];
+    let currentIndex = 0;
 
     // Poblar Filtro
     const filter = document.getElementById('categoryFilter');
@@ -361,7 +363,6 @@
     function resetAndLoad() {
         const cat = filter.value;
         currentPool = cat === 'all' ? [...DATA] : DATA.filter(d => d.cat === cat);
-        // Barajar el mazo al cambiar de categoría
         currentPool.sort(() => Math.random() - 0.5);
         currentIndex = 0;
         displayCard();
@@ -373,10 +374,17 @@
         imgElement.style.opacity = "0.3";
 
         const card = currentPool[currentIndex];
+        
+        // 3. CAMBIO CLAVE: Usar la ruta de tu servidor propio en Render
         const newSrc = `/api/proxy-image?file=${card.file}&t=${new Date().getTime()}`;
         
         imgElement.src = newSrc;
         imgElement.onload = () => imgElement.style.opacity = "1";
+        imgElement.onerror = () => {
+            console.error("Error cargando desde tu servidor Render");
+            // Intento de recarga si falla
+            setTimeout(() => { imgElement.src = newSrc + "_retry"; }, 1000);
+        };
 
         document.getElementById('organName').innerText = card.name;
         document.getElementById('categoryName').innerText = card.cat;
