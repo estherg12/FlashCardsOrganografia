@@ -40,6 +40,19 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Aviso de carga */
+        .loading-notice { 
+            background: rgba(59, 130, 246, 0.2); 
+            border: 1px solid #3b82f6; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            font-size: 0.85rem; 
+            margin-bottom: 20px; 
+            max-width: 500px; 
+            text-align: center;
+            color: #93c5fd;
+        }
+
         .external-link {
             color: var(--secondary);
             text-decoration: none;
@@ -159,9 +172,18 @@
     </a>
 </header>
 
+<div class="loading-notice">
+    ℹ️ El servidor gratuito puede tardar <b>30-50 segundos</b> en cargar la primera imagen si no se ha usado recientemente. ¡Paciencia!
+</div>
+
 <select id="categoryFilter" onchange="loadCard()">
     <option value="all">📁 Todos los sistemas</option>
 </select>
+
+<div class="nav-controls">
+    <button class="nav-btn" onclick="prevCard()">⬅️ Anterior</button>
+    <button class="nav-btn" onclick="nextCard()">Siguiente ➡️</button>
+</div>
 
 <div class="flashcard-container" onclick="document.getElementById('innerCard').classList.toggle('flipped')">
     <div class="flashcard" id="innerCard">
@@ -336,44 +358,58 @@
         let o = document.createElement('option'); o.value = c; o.innerText = c; filter.appendChild(o);
     });
 
-    function loadCard() {
+    function resetAndLoad() {
+        const cat = filter.value;
+        currentPool = cat === 'all' ? [...DATA] : DATA.filter(d => d.cat === cat);
+        // Barajar el mazo al cambiar de categoría
+        currentPool.sort(() => Math.random() - 0.5);
+        currentIndex = 0;
+        displayCard();
+    }
+
+    function displayCard() {
         document.getElementById('innerCard').classList.remove('flipped');
         const imgElement = document.getElementById('mainImg');
         imgElement.style.opacity = "0.3";
 
-        setTimeout(() => {
-            const cat = filter.value;
-            const pool = cat === 'all' ? DATA : DATA.filter(d => d.cat === cat);
-            const card = pool[Math.floor(Math.random() * pool.length)];
-            
-            // LLAMADA A TU PROPIO SERVIDOR (RUTA RELATIVA)
-            const newSrc = `/api/proxy-image?file=${card.file}&t=${new Date().getTime()}`;
-            imgElement.src = newSrc;
+        const card = currentPool[currentIndex];
+        const newSrc = `/api/proxy-image?file=${card.file}&t=${new Date().getTime()}`;
+        
+        imgElement.src = newSrc;
+        imgElement.onload = () => imgElement.style.opacity = "1";
 
-            imgElement.onload = () => imgElement.style.opacity = "1";
-            imgElement.onerror = () => {
-                console.warn("Fallo de carga, reintentando...");
-                setTimeout(() => { imgElement.src = newSrc + "_retry"; }, 1000);
-            };
+        document.getElementById('organName').innerText = card.name;
+        document.getElementById('categoryName').innerText = card.cat;
+        document.getElementById('techName').innerText = "Técnica: " + card.tec;
+    }
 
-            document.getElementById('organName').innerText = card.name;
-            document.getElementById('categoryName').innerText = card.cat;
-            document.getElementById('techName').innerText = "Técnica: " + card.tec;
-        }, 300);
+    function nextCard() {
+        currentIndex = (currentIndex + 1) % currentPool.length;
+        displayCard();
+    }
+
+    function prevCard() {
+        currentIndex = (currentIndex - 1 + currentPool.length) % currentPool.length;
+        displayCard();
     }
 
     function submitResult(isCorrect) {
         if(isCorrect) { stats.c++; stats.r++; } 
         else { stats.w++; stats.r = 0; }
+        updateStatsUI();
+        nextCard();
+    }
+
+    function updateStatsUI() {
         const total = stats.c + stats.w;
         document.getElementById('s-c').innerText = stats.c;
         document.getElementById('s-w').innerText = stats.w;
         document.getElementById('s-r').innerText = stats.r;
-        document.getElementById('s-p').innerText = Math.round((stats.c / total) * 100) + "%";
-        loadCard();
+        document.getElementById('s-p').innerText = total === 0 ? "0%" : Math.round((stats.c / total) * 100) + "%";
     }
 
-    loadCard();
+    // Carga inicial
+    resetAndLoad();
 </script>
 </body>
 </html>
