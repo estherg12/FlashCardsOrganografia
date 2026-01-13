@@ -17,10 +17,10 @@ app.get('/api/proxy-image', async (req, res) => {
             url: targetUrl,
             method: 'GET',
             responseType: 'stream',
-            timeout: 10000, // Aumentado a 10s para conexiones lentas
+            timeout: 100000, // Aumentado a 100s para conexiones lentas
             headers: {
                 'Referer': 'https://www.pathologylive.com/',
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
             }
         });
         
@@ -36,4 +36,4 @@ app.get('/api/proxy-image', async (req, res) => {
 
 // Render usa el puerto de la variable de entorno PORT
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Servidor en puerto ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
