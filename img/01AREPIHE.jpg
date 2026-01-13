@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<title>Pathology Live</title>
+<meta name="description" content="Pathology LIVE! of the Universidad Complutense Madrid whose object is the creation of an online platform of continuous training in pathology and veterinary forensics for students of health sciences. The Pathology LIVE! platform allows access to the students to live necropsies and to the follow-up of the histopathological study of the different cases, allowing self-assessment and analysis of the knowledge acquisition" />
+<meta name="keywords" content="Pathology Live PathologyLive VISAVET UCM" />
+<meta name="viewport" content="width=1010" />
+<meta name="theme-color" content="#303031" />
+<meta name="robots" content="INDEX,FOLLOW" />
+<link rel="shortcut icon" href="/favicon.ico">
+<script type="text/javascript" src="/app/js/jquery.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111164784-1"></script>
+<script>
+<!--
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111164784-1');
+-->
+</script>
+<link href="pato.css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+
+</head>
+
+<body>
+	
+<div id="container">
+
+
+		<a name="top"></a>
+
+	<div id="header">
+		<div id="headerContent">
+
+			<div id="logo">
+		  	</div>
+
+			<div id="menu">
+
+				<br />
+				<br />
+
+		      <ul id="menuLista">
+		      								<li><a title="Pathology Live project" href="./"><span class="marcado">The project</span></a></li>
+							<li><a title="Pathology" href="pathology.php"><span class="">Pathology</span></a></li>
+							<li><a title="Histology" href="histology.php"><span class="">Histology</span></a></li>
+																	        		<li class="lastLi"><a title="Case studies" href="case-studies.php"><span class="">Case studies</span></a></li>
+			        		<li class="lastLi"><a title="Grosspath 3D" href="3d-samples.php"><span class="">Grosspath 3D</span></a></li>
+			       		      </ul>
+			</div><!--menu-->
+		</div><!--headerContent-->
+	</div><!--header-->
+
+
+	</div><!--cabecera-->
+
+	<div id="content">
+		<div id="contentContent">
+			<div id="contentP">
+
+
+				<div id="contentLeft">
+
+					<div id="migas">Home / The project</div>
+
+
+				 	<div id="tituloB">
+						<h1 class="fsize24"><strong>Pathology Live</strong></h1>
+					</div><!--tituloP-->
+
+		          <p><a title="Pathology LIVE!" href="https://www.pathologylive.com">Pathology LIVE!</a> is born from a Project of Innovation and the Teaching Quality Improvement of the Universidad Complutense Madrid whose object is the creation of an online platform of continuous training in <a title="Pathology" href="pathology.php">pathology</a> and <a title="Veterinary Forensics" href="veterinary-forensic.php">veterinary forensics</a> for students of health sciences.  The <a title="Pathology LIVE!" href="https://www.pathologylive.com">Pathology LIVE!</a> platform allows access to the students to live necropsies and to the follow-up of the histopathological study of the different cases, allowing self-assessment and analysis of the knowledge acquisition. </p>
+                  <p><a title="Pathology LIVE!" href="https://www.pathologylive.com">Pathology LIVE!</a> is integrated by a <a title="Pathology LIVE! Workgroup" href="workgroup.php">multidisciplinary team</a> and is developed in the <a title="Pathology LIVE! facilities" href="facilities.php">facilities</a> of <a title="VISAVET-UCM" href="https://www.visavet.es/en/">VISAVET Health Surveillance Centre</a> of Universidad Complutense Madrid.</p>
+                  
+				  <img src="../img/pathology-live.png" width="638" height="246" />
+                  
+		           <p style="font-size: 10px; font-weight: bold; padding-top: -15px; color: #CCC;">Project of Innovation and the Teaching Quality Improvement of the Universidad Complutense Madrid. Project number: 202. Call: 2016/2017 </p>
+
+		          <h2>Pathology LIVE! objectives</h2>
+		          <p>The Project of Innovation and the Teaching Quality Improvement of the Universidad Complutense Madrid <a title="Pathology LIVE!" href="https://www.pathologylive.com">Pathology LIVE!</a> has the following objectives: </p>
+
+		          <ul>
+		          	<li>Acquisition of knowledge visualizing of necropsies performance, in level BSL2 and BSL3 biosafety areas, in which potentially pathogenic microorganisms may be involved for veterinary and human medicine or there is a forensic interest.</li>
+		          	<li>Live broadcast of the description of the main macroscopic findings and the taking of samples in these necropsies through the use of zenith and frontal cameras in pathologists.</li>
+		          	<li>Follow-up of the histopathological description of these and other clinical cases.</li>
+                    <li>Evaluation of the knowledge acquired by the students.</li>
+		          </ul>
+
+				</div><!--contentLeft-->
+
+
+
+				<div id="contentRight">
+
+
+					
+	
+		<p id="idioma"><a title="Spanish" href="es/"><img src="img/flag_spain.gif" alt="Spanish version" width="16" height="11" /></a></p>
+		
+
+			
+	<br class="clearfloat" />
+
+
+
+<h2 class='panelIn'><strong>The project</strong></h2> <h2 class='panel'><a title='Pathology Live! project Workgroup' href='workgroup.php'>&#9642; Workgroup</a></h2> <h2 class='panel1'><a title='Pathology Live! members' href='workgroup.php#members'>- Members</a></h2> <h2 class='panel1'><a title='Pathology Live! collaborators' href='workgroup.php#collaborators'>- Collaborators</a></h2> <h2 class='panel'><a title='Pathology Live! Facilities and equipment' href='facilities-equipment.php'>&#9642; Facilities and equipment</a></h2> <h2 class='panel1'><a title='Pathology Live! Facilities' href='facilities-equipment.php#facilities'>- Facilities</a></h2> <h2 class='panel1'><a title='Pathology Live! Equipment' href='facilities-equipment.php#equipment'>- Equipment</a></h2><br />
+					<br />
+					
+					<p class="bajaContent"></p>
+
+					<br />
+					
+				</div><!--contentRight-->
+
+			</div><!--contentP-->
+		</div><!--contentContent-->
+
+	</div><!--content-->
+
+
+
+	<div class="subir">
+		<div class="subirContent">
+			<div class="subirP">
+				
+				<div id="addT">
+				</div>
+
+				<div id="arriba">
+					<a title="Go to top" href="#top"><span class="flecha"></span> Go to top</a>
+				</div>
+									
+			</div><!--subirP-->
+		</div><!--subirContent-->
+	</div><!--subir-->
+	
+
+	<div id="footer">
+					<div id="membrete">
+				<div id="membreteContent">
+					<div id="membretefooterP">
+						<table summary="Menu TAVS" width="100%" class="tabla1">
+							<tr>
+								<td width="17%"><a title="Pathology Live project" href=""><strong>The project</strong></a></td>
+								<td width="16%"><a title="Pathology" href="pathology.php"><strong>Pathology</strong></a></td>
+								<td width="17%"><a title="Histology" href="histology.php"><strong>Histology</strong></a></td>
+								<td width="16%"><a title="Pathology case studies" href="case-studies.php"><strong>Case studies</strong></a></td>
+								<td width="14%"><a title="Contact information" href="contact.php"><strong>Contact</strong></a></td>
+								<td width="16%"><a title="Grosspath 3D" href="3d-samples.php"><strong>Grosspath 3D</strong></a></td>
+							</tr>
+						</table>
+					</div><!--membreteP-->
+				</div><!--membreteContent-->
+			</div><!--membrete-->
+
+			<div id="footerMenu">
+				<div id="footerMenuContent">
+					<div id="footerMenuP">
+						<table summary="Pathology Live Sitemap" width="100%" class="tabla2">
+							<tr>
+								<td width="17%"><a title="Pathology Live project Workgroup" href="workgroup.php">Workgroup</a></td>
+								<td width="16%"><a title="Necropsy" href="necropsy.php">Necropsy</a></td>
+								<td width="17%"><a title='Histology practices' href='practicas-histologia/'>Histology</a></td>
+								<td width="16%"></td>
+								<td width="14%"></td>
+								<td width="16%"></td>
+							</tr>
+
+							<tr>
+								<td><a title="VISAVET Health Surveillance Centre Facilities" href="facilities-equipment.php">Facilities and Equipment</a></td>
+								<td><a title="Sampling" href="sampling.php">Sampling</a></td>
+								<td><a title='Microscopic organography practices' href='practicas-organografia-microscopica/index2.html'>Microscopic organography</a></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td><a title="Macroscopic pathological study" href="macroscopic-pathological-study.php">Macroscopic study</a></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							
+							<tr>
+								<td></td>
+								<td><a title="Histopathology. Histopathological study" href="histopathology.php">Histopathology</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+
+							<tr>
+								<td></td>
+								<td><a title="Forensic Veterinary" href="forensic-veterinary.php">Forensic Veterinary</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							
+						</table>
+					</div><!--footerMenuP-->
+				</div><!--footerMenuContent-->
+			</div><!--footerMenu-->
+				
+
+
+		
+		<div id="postfooter">
+			<div id="postfooterContent">
+				<div id="postfooterP">
+                
+                <div id="logoBajo">
+						<img src="img/PL.jpg" width="119" height="61" alt="stopleishmania" />
+					</div>
+
+					<div id="subtitle">
+						<strong> Copyright © 2026 Pathology Live!</strong> | All rights reserved.<br>
+						Project of Innovation and Teaching Quality Improvement. VISAVET Health surveillance Centre. Universidad Complutense Madrid
+						<div id="cookies">The navigation through this website implies the acceptance of the use of own and third-party cookies necessary for its correct functioning</div>
+					</div>
+					
+					<div id="dev">
+						<a title="Developed by Information Technology and Communication Unit. VISAVET Universidad Complutense Madrid" href="https://www.visavet.es/en/visavet/units/information-technology-and-communication-unit/" target="_blank">
+							<img src="img/sic-visavet-development.gif" alt="SIC VISAVET Development" width="18" height="18" />
+						</a>
+					</div>
+
+				</div><!--postfooterP-->
+			</div><!--postfooterContent-->
+		</div><!--postfooter-->
+
+	</div><!--footer-->
+</div><!--container-->
+
+
+</body>
+</html>

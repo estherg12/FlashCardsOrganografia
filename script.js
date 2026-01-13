@@ -163,7 +163,9 @@
     function preloadAllImages() {
         DATA.forEach(card => {
             const img = new Image();
-            img.src = `/api/proxy-image?file=${card.file}`;
+            // Si funcionara el proxy
+            // img.src = `/api/proxy-image?file=${card.file}`;
+            img.src = "img/" + card.file
             img.onload = () => updateProgress();
             img.onerror = () => updateProgress(); // Contar aunque falle para no bloquear la barra
         });
