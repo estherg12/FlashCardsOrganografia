@@ -17,7 +17,7 @@ app.get('/api/proxy-image', async (req, res) => {
             url: targetUrl,
             method: 'GET',
             responseType: 'stream',
-            timeout: 100000, // Aumentado a 100s para conexiones lentas
+            timeout: 1000000, // Aumentado a 1000s para conexiones lentas
             headers: {
                 'Referer': 'https://www.pathologylive.com/',
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'

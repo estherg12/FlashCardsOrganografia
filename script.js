@@ -137,12 +137,36 @@
     let stats = { c: 0, w: 0, r: 0 };
     let currentPool = [];
     let currentIndex = 0;
+    let loadedImages = 0;
 
     // Poblar Filtro
     const filter = document.getElementById('categoryFilter');
     [...new Set(DATA.map(d => d.cat))].forEach(c => {
         let o = document.createElement('option'); o.value = c; o.innerText = c; filter.appendChild(o);
     });
+
+    function preloadAllImages() {
+        document.getElementById('preload-bar-container').style.display = 'block';
+        
+        DATA.forEach(card => {
+            const img = new Image();
+            // Solicitamos la imagen al proxy para que se guarde en caché
+            img.src = `/api/proxy-image?file=${card.file}`;
+            img.onload = img.onerror = () => {
+                loadedImages++;
+                const percent = (loadedImages / DATA.length) * 100;
+                document.getElementById('preload-bar').style.width = percent + '%';
+                document.getElementById('load-count').innerText = loadedImages;
+                
+                if (loadedImages === DATA.length) {
+                    document.getElementById('loading-status').innerHTML = "✅ Todas las imágenes cargadas. ¡Navegación instantánea activada!";
+                    setTimeout(() => {
+                        document.getElementById('preload-bar-container').style.opacity = '0';
+                    }, 2000);
+                }
+            };
+        });
+    }
 
     function resetAndLoad() {
         const cat = filter.value;
@@ -160,15 +184,15 @@
         const card = currentPool[currentIndex];
         
         // 3. CAMBIO CLAVE: Usar la ruta de tu servidor propio en Render
-        const newSrc = `/api/proxy-image?file=${card.file}&t=${new Date().getTime()}`;
+        const newSrc = `/api/proxy-image?file=${card.file}`;
         
-        imgElement.src = newSrc;
+        /*imgElement.src = newSrc;
         imgElement.onload = () => imgElement.style.opacity = "1";
         imgElement.onerror = () => {
             console.error("Error cargando desde tu servidor Render");
             // Intento de recarga si falla
             //setTimeout(() => { imgElement.src = newSrc + "_retry"; }, 1000);
-        };
+        };*/
 
         document.getElementById('organName').innerText = card.name;
         document.getElementById('categoryName').innerText = card.cat;
@@ -202,3 +226,4 @@
 
     // Carga inicial
     resetAndLoad();
+    preloadAllImages();
