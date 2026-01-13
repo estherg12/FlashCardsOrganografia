@@ -141,7 +141,6 @@
 
     // --- REFERENCIAS Y POBLACIÓN DE FILTROS ---
     const filterCat = document.getElementById('categoryFilter');
-    const filterTech = document.getElementById('techFilter');
 
     // Llenar Filtro de Sistemas
     [...new Set(DATA.map(d => d.cat))].sort().forEach(c => {
