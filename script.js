@@ -154,25 +154,8 @@
     });
 
     function resetAndLoad() {
-        const selectedCat = filterCat.value;
-        const selectedTech = filterTech.value;
-
-        // Filtramos por ambos criterios a la vez
-        currentPool = DATA.filter(d => {
-            const matchCat = (selectedCat === 'all' || d.cat === selectedCat);
-            const matchTech = (selectedTech === 'all' || d.tec === selectedTech);
-            return matchCat && matchTech;
-        });
-
-        if (currentPool.length === 0) {
-            alert("No hay imágenes que coincidan con ambos filtros.");
-            // Resetear filtros si no hay resultados
-            filterCat.value = "all";
-            filterTech.value = "all";
-            resetAndLoad();
-            return;
-        }
-
+        const cat = filter.value;
+        currentPool = cat === 'all' ? [...DATA] : DATA.filter(d => d.cat === cat);
         currentPool.sort(() => Math.random() - 0.5);
         currentIndex = 0;
         displayCard();
