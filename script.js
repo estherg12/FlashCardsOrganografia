@@ -146,7 +146,8 @@
     });
 
     function preloadAllImages() {
-        document.getElementById('preload-bar-container').style.display = 'block';
+        const statusBox = document.getElementById('loading-status');
+        const progressBar = document.getElementById('preload-bar');
         
         DATA.forEach(card => {
             const img = new Image();
@@ -164,6 +165,9 @@
                         document.getElementById('preload-bar-container').style.opacity = '0';
                     }, 2000);
                 }
+                else {
+                statusBox.innerHTML = `⏳ Precargando mazo: ${loadedCount} / ${totalImages} imágenes...`;
+            }
             };
         });
     }
@@ -225,5 +229,7 @@
     }
 
     // Carga inicial
-    resetAndLoad();
+window.onload = () => {
     preloadAllImages();
+    resetAndLoad();
+};

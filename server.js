@@ -6,7 +6,7 @@ const app = express();
 
 app.use(cors());
 // Sirve archivos estáticos (index.html) desde la raíz
-app.use(express.static(path.join(__dirname)));
+app.use(express.static((__dirname)));
 
 app.get('/api/proxy-image', async (req, res) => {
     const fileName = req.query.file;
