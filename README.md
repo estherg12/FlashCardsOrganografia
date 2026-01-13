@@ -20,7 +20,7 @@ Para garantizar la máxima velocidad y evitar bloqueos de servidores externos, e
 
 ## 📖 Manual de Usuario
 Al abrir la aplicación, verás una barra de progreso. Espera unos segundos a que se complete (esto descarga las imágenes en tu memoria local). Una vez completado, el estudio será fluido y sin esperas.
-* Filtro: Selecciona un sistema específico (ej. Aparato Respiratorio) o estudia todos los sistemas a la vez.
+* Filtros: Selecciona un sistema específico (ej. Aparato Respiratorio) y por técnicas de tintado o estudia todos los sistemas y tintados a la vez.
 * Botones Anterior/Siguiente: Úsalos para explorar las imágenes sin que afecte a tus estadísticas.
 * Revelar Respuesta: Haz clic o toca sobre la imagen para girar la tarjeta y ver el nombre del órgano y la técnica de tinción utilizada.
 
