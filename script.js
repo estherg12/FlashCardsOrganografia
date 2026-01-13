@@ -139,40 +139,40 @@
     let currentIndex = 0;
     let loadedCount = 0;
 
-    // Poblar Filtro
-    const filter = document.getElementById('categoryFilter');
-    [...new Set(DATA.map(d => d.cat))].forEach(c => {
-        let o = document.createElement('option'); o.value = c; o.innerText = c; filter.appendChild(o);
+    // --- REFERENCIAS Y POBLACIÓN DE FILTROS ---
+    const filterCat = document.getElementById('categoryFilter');
+    const filterTech = document.getElementById('techFilter');
+
+    // Llenar Filtro de Sistemas
+    [...new Set(DATA.map(d => d.cat))].sort().forEach(c => {
+        let o = document.createElement('option'); o.value = c; o.innerText = c; filterCat.appendChild(o);
     });
 
-    function updateProgress() {
-        loadedCount++;
-        const total = DATA.length;
-        const percent = (loadedCount / total) * 100;
-        document.getElementById('preload-bar').style.width = percent + '%';
-        
-        if (loadedCount === total) {
-            document.getElementById('loading-status').innerHTML = "✅ Todas las imágenes cargadas. ¡Navegación instantánea!";
-            document.getElementById('loading-status').style.borderColor = "#10b981";
-            document.getElementById('loading-status').style.color = "#10b981";
-        } else {
-            document.getElementById('loading-status').innerHTML = `⏳ Precargando: ${loadedCount} / ${total}`;
-        }
-    }
-
-    function preloadAllImages() {
-        DATA.forEach(card => {
-            const img = new Image();
-            
-            img.src = "img/" + card.file
-            img.onload = () => updateProgress();
-            img.onerror = () => updateProgress(); // Contar aunque falle para no bloquear la barra
-        });
-    }
+    // Llenar Filtro de Técnicas
+    [...new Set(DATA.map(d => d.tec))].sort().forEach(t => {
+        let o = document.createElement('option'); o.value = t; o.innerText = t; filterTech.appendChild(o);
+    });
 
     function resetAndLoad() {
-        const cat = filter.value;
-        currentPool = cat === 'all' ? [...DATA] : DATA.filter(d => d.cat === cat);
+        const selectedCat = filterCat.value;
+        const selectedTech = filterTech.value;
+
+        // Filtramos por ambos criterios a la vez
+        currentPool = DATA.filter(d => {
+            const matchCat = (selectedCat === 'all' || d.cat === selectedCat);
+            const matchTech = (selectedTech === 'all' || d.tec === selectedTech);
+            return matchCat && matchTech;
+        });
+
+        if (currentPool.length === 0) {
+            alert("No hay imágenes que coincidan con ambos filtros.");
+            // Resetear filtros si no hay resultados
+            filterCat.value = "all";
+            filterTech.value = "all";
+            resetAndLoad();
+            return;
+        }
+
         currentPool.sort(() => Math.random() - 0.5);
         currentIndex = 0;
         displayCard();
