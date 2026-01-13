@@ -150,7 +150,10 @@
 
     function resetAndLoad() {
         const cat = filter.value;
+        // Filtramos solo por sistema
         currentPool = cat === 'all' ? [...DATA] : DATA.filter(d => d.cat === cat);
+        
+        // Mezclamos el mazo
         currentPool.sort(() => Math.random() - 0.5);
         currentIndex = 0;
         displayCard();
@@ -180,11 +183,14 @@
     }
 
     function nextCard() {
+        if (currentPool.length === 0) return;
+        // El operador % hace que el mazo sea circular e infinito
         currentIndex = (currentIndex + 1) % currentPool.length;
         displayCard();
     }
 
     function prevCard() {
+        if (currentPool.length === 0) return;
         currentIndex = (currentIndex - 1 + currentPool.length) % currentPool.length;
         displayCard();
     }
