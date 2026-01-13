@@ -148,11 +148,6 @@
         let o = document.createElement('option'); o.value = c; o.innerText = c; filterCat.appendChild(o);
     });
 
-    // Llenar Filtro de Técnicas
-    [...new Set(DATA.map(d => d.tec))].sort().forEach(t => {
-        let o = document.createElement('option'); o.value = t; o.innerText = t; filterTech.appendChild(o);
-    });
-
     function resetAndLoad() {
         const cat = filter.value;
         currentPool = cat === 'all' ? [...DATA] : DATA.filter(d => d.cat === cat);
@@ -167,11 +162,11 @@
         imgElement.style.opacity = "0.3";
 
         const card = currentPool[currentIndex];
-        
+        imgElement.src = "";
         // 3. CAMBIO CLAVE: Usar la ruta de tu servidor propio en Render
         // const newSrc = `/api/proxy-image?file=${card.file}`;
 
-        imgElement.src = "img/" + card.file;
+        imgElement.src = "img/" + card.file + "?v=" + new Date().getTime();
         imgElement.style.opacity = "1";
         
         imgElement.onload = () => imgElement.style.opacity = "1";
