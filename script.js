@@ -129,8 +129,7 @@
         
         // Sentidos
         {"file": "01OSOJHE.jpg", "name": "Ojo - Retina", "cat": "Órganos de los Sentidos", "tec": "HE"},
-        {"file": "02OSOJHE.jpg", "name": "Ojo - Córnea", "cat": "Órganos de los Sentidos", "tec": "HE"},
-        {"file": "01OSOIHE.jpg", "name": "Oído interno", "cat": "Órganos de los Sentidos", "tec": "HE"}
+        {"file": "02OSOJHE.jpg", "name": "Ojo - Córnea", "cat": "Órganos de los Sentidos", "tec": "HE"}
     ];
     
 
@@ -140,11 +139,11 @@
     let loadedCount = 0;
 
     // --- REFERENCIAS Y POBLACIÓN DE FILTROS ---
-    const filterCat = document.getElementById('categoryFilter');
+    const filter = document.getElementById('categoryFilter');
 
     // Llenar Filtro de Sistemas
     [...new Set(DATA.map(d => d.cat))].sort().forEach(c => {
-        let o = document.createElement('option'); o.value = c; o.innerText = c; filterCat.appendChild(o);
+        let o = document.createElement('option'); o.value = c; o.innerText = c; filter.appendChild(o);
     });
 
     function resetAndLoad() {
@@ -211,6 +210,5 @@
 
     // Carga inicial
 window.onload = () => {
-    preloadAllImages();
     resetAndLoad();
 };
