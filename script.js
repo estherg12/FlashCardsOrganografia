@@ -137,7 +137,7 @@
     let stats = { c: 0, w: 0, r: 0 };
     let currentPool = [];
     let currentIndex = 0;
-    let loadedImages = 0;
+    let loadedCount = 0;
 
     // Poblar Filtro
     const filter = document.getElementById('categoryFilter');
@@ -145,30 +145,27 @@
         let o = document.createElement('option'); o.value = c; o.innerText = c; filter.appendChild(o);
     });
 
-    function preloadAllImages() {
-        const statusBox = document.getElementById('loading-status');
-        const progressBar = document.getElementById('preload-bar');
+    function updateProgress() {
+        loadedCount++;
+        const total = DATA.length;
+        const percent = (loadedCount / total) * 100;
+        document.getElementById('preload-bar').style.width = percent + '%';
         
+        if (loadedCount === total) {
+            document.getElementById('loading-status').innerHTML = "✅ Todas las imágenes cargadas. ¡Navegación instantánea!";
+            document.getElementById('loading-status').style.borderColor = "#10b981";
+            document.getElementById('loading-status').style.color = "#10b981";
+        } else {
+            document.getElementById('loading-status').innerHTML = `⏳ Precargando: ${loadedCount} / ${total}`;
+        }
+    }
+
+    function preloadAllImages() {
         DATA.forEach(card => {
             const img = new Image();
-            // Solicitamos la imagen al proxy para que se guarde en caché
             img.src = `/api/proxy-image?file=${card.file}`;
-            img.onload = img.onerror = () => {
-                loadedImages++;
-                const percent = (loadedImages / DATA.length) * 100;
-                document.getElementById('preload-bar').style.width = percent + '%';
-                document.getElementById('load-count').innerText = loadedImages;
-                
-                if (loadedImages === DATA.length) {
-                    document.getElementById('loading-status').innerHTML = "✅ Todas las imágenes cargadas. ¡Navegación instantánea activada!";
-                    setTimeout(() => {
-                        document.getElementById('preload-bar-container').style.opacity = '0';
-                    }, 2000);
-                }
-                else {
-                statusBox.innerHTML = `⏳ Precargando mazo: ${loadedCount} / ${totalImages} imágenes...`;
-            }
-            };
+            img.onload = () => updateProgress();
+            img.onerror = () => updateProgress(); // Contar aunque falle para no bloquear la barra
         });
     }
 
@@ -189,6 +186,7 @@
         
         // 3. CAMBIO CLAVE: Usar la ruta de tu servidor propio en Render
         const newSrc = `/api/proxy-image?file=${card.file}`;
+        imgElement.style.opacity = "1";
         
         /*imgElement.src = newSrc;
         imgElement.onload = () => imgElement.style.opacity = "1";
