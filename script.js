@@ -41,7 +41,6 @@
         {"file": "02ARMOHE.jpg", "name": "Mucosa olfatoria", "cat": "Aparato Respiratorio", "tec": "HE"},
         {"file": "01ARAFHE.jpg", "name": "Amígdala faríngea", "cat": "Aparato Respiratorio", "tec": "HE"},
         {"file": "02ARAFHE.jpg", "name": "Amígdala faríngea", "cat": "Aparato Respiratorio", "tec": "HE"},
-        {"file": "01ARTHE.jpg", "name": "Tráquea", "cat": "Aparato Respiratorio", "tec": "HE"},
         {"file": "01ARPDHE.jpg", "name": "Pulmón Distendido", "cat": "Aparato Respiratorio", "tec": "HE"},
         {"file": "06ARPDHE.jpg", "name": "Pulmón Distendido", "cat": "Aparato Respiratorio", "tec": "HE"},
         {"file": "04ARPCHE.jpg", "name": "Pulmón Colapsado", "cat": "Aparato Respiratorio", "tec": "HE"},
