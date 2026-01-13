@@ -163,8 +163,7 @@
     function preloadAllImages() {
         DATA.forEach(card => {
             const img = new Image();
-            // Si funcionara el proxy
-            //img.src = `/api/proxy-image?file=${card.file}`;
+            
             img.src = "img/" + card.file
             img.onload = () => updateProgress();
             img.onerror = () => updateProgress(); // Contar aunque falle para no bloquear la barra
@@ -187,16 +186,15 @@
         const card = currentPool[currentIndex];
         
         // 3. CAMBIO CLAVE: Usar la ruta de tu servidor propio en Render
-        const newSrc = `/api/proxy-image?file=${card.file}`;
+        // const newSrc = `/api/proxy-image?file=${card.file}`;
+
+        imgElement.src = "img/" + card.file;
         imgElement.style.opacity = "1";
         
-        /*imgElement.src = newSrc;
         imgElement.onload = () => imgElement.style.opacity = "1";
         imgElement.onerror = () => {
-            console.error("Error cargando desde tu servidor Render");
-            // Intento de recarga si falla
-            //setTimeout(() => { imgElement.src = newSrc + "_retry"; }, 1000);
-        };*/
+            console.error("No se encontró el archivo en la carpeta img/:", card.file);
+        };
 
         document.getElementById('organName').innerText = card.name;
         document.getElementById('categoryName').innerText = card.cat;
