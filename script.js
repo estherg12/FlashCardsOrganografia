@@ -71,7 +71,6 @@
         {"file": "03ADBMHE.jpg", "name": "Molar", "cat": "Digestivo - Boca", "tec": "HE"},
         {"file": "04ADTELHE.jpg", "name": "Esófago Longitudinal", "cat": "Digestivo - Tubo", "tec": "HE"},
         {"file": "04ADTSCHE.jpg", "name": "Estómago", "cat": "Digestivo - Tubo", "tec": "HE"},
-        {"file": "01ADIDHE.jpg", "name": "Intestino delgado - Duodeno", "cat": "Digestivo - Tubo", "tec": "HE"},
         {"file": "05ADTYCHE.jpg", "name": "Yeyuno Transversal", "cat": "Digestivo - Tubo", "tec": "HE"},
         {"file": "04ADTITHE.jpg", "name": "Íleon Transversal", "cat": "Digestivo - Tubo", "tec": "HE"},
         {"file": "04ADTAHE.jpg", "name": "Apéndice", "cat": "Digestivo - Tubo", "tec": "HE"},
