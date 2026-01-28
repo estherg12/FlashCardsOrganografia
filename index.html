@@ -16,9 +16,27 @@
     </a>
 </header>
 
+<audio id="snd-correct" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
+<audio id="snd-wrong" src="https://assets.mixkit.co/active_storage/sfx/953/953-preview.mp3"></audio>
+
+<div id="medals-container"></div>
+
+<div class="exam-controls" onclick="toggleExamMode()">
+    <span id="examText" style="cursor: pointer; user-select: none;">
+        ⏱️ Modo Examen (10s): <strong id="examStatus">OFF</strong>
+    </span>
+    <div id="timer-bar-container">
+        <div id="timer-bar"></div>
+    </div>
+</div>
+
 <select id="categoryFilter" onchange="resetAndLoad()">
     <option value="all">📁 Todos los sistemas</option>
 </select>
+
+<div id="repaso-indicator" style="display: none; background: var(--wrong); color: white; padding: 5px 15px; border-radius: 20px; margin-bottom: 10px; font-weight: bold; font-size: 0.8rem; animation: pulse 2s infinite;">
+    ⚠️ MODO REPASO: Corrigiendo fallos
+</div>
 
 <div class="flashcard-container" onclick="document.getElementById('innerCard').classList.toggle('flipped')">
     <div class="flashcard" id="innerCard">
@@ -48,7 +66,10 @@
 
 <div class="stats-grid">
     <div class="stat-card"><span class="stat-val" id="s-c" style="color: var(--accent)">0</span><span class="stat-label">Aciertos</span></div>
-    <div class="stat-card"><span class="stat-val" id="s-w" style="color: var(--wrong)">0</span><span class="stat-label">Fallos</span></div>
+    <div class="stat-card" onclick="filterByMistakes()" style="cursor: pointer;" title="Click para repasar fallos">
+        <span class="stat-val" id="s-w" style="color: var(--wrong)">0</span>
+        <span class="stat-label">Fallos</span>
+    </div>
     <div class="stat-card"><span class="stat-val" id="s-p" style="color: #3b82f6">0%</span><span class="stat-label">Precisión</span></div>
     <div class="stat-card"><span class="stat-val" id="s-r" style="color: #f59e0b">0</span><span class="stat-label">Racha 🔥</span></div>
 </div>

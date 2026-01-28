@@ -115,8 +115,32 @@
 
     let stats = { c: 0, w: 0, r: 0 };
     let currentPool = [];
+    let mistakesPool = [];
     let currentIndex = 0;
     let loadedCount = 0;
+    let isMistakeMode = false;
+
+    let isExamMode = false;
+    let timerInterval = null;
+    let timeLeft = 10;
+    let masteredSystems = []; // Para guardar sistemas completados sin fallos
+    let sessionProgress = {};
+
+    // --- LOGROS Y MEDALLAS ---
+    const SYSTEM_ICONS = {
+        "Aparato Circulatorio": "❤️",
+        "Órganos Linfoides": "🛡️",
+        "Aparato Respiratorio": "🫁",
+        "Sistema Endocrino": "🧪",
+        "Piel": "🤚",
+        "Digestivo - Boca": "👄",
+        "Digestivo - Tubo": "🍱",
+        "Aparato Urinario": "💧",
+        "Genital Masculino": "♂️",
+        "Genital Femenino": "♀️",
+        "Sistema Nervioso": "🧠",
+        "Órganos de los Sentidos": "👁️"
+    };
 
     // --- REFERENCIAS Y POBLACIÓN DE FILTROS ---
     const filter = document.getElementById('categoryFilter');
@@ -125,6 +149,26 @@
     [...new Set(DATA.map(d => d.cat))].sort().forEach(c => {
         let o = document.createElement('option'); o.value = c; o.innerText = c; filter.appendChild(o);
     });
+
+    function initMedals() {
+        const container = document.getElementById('medals-container');
+        container.innerHTML = "";
+        Object.keys(SYSTEM_ICONS).forEach(sys => {
+            const div = document.createElement('div');
+            div.className = 'medal';
+            div.id = `medal-${sys.replace(/\s+/g, '')}`;
+            div.innerHTML = SYSTEM_ICONS[sys];
+            div.setAttribute('data-info', `Experto: Acierta todo el sistema ${sys}`);
+            container.appendChild(div);
+        });
+    }
+
+    // --- SONIDOS ---
+    function playSound(type) {
+        const snd = document.getElementById(type === 'correct' ? 'snd-correct' : 'snd-wrong');
+        snd.currentTime = 0;
+        snd.play();
+    }
 
     function resetAndLoad() {
         const cat = filter.value;
@@ -138,26 +182,32 @@
     }
 
     function displayCard() {
+        const indicator = document.getElementById('repaso-indicator');
+        indicator.style.display = isMistakeMode ? "block" : "none";
         document.getElementById('innerCard').classList.remove('flipped');
-        const imgElement = document.getElementById('mainImg');
-        imgElement.style.opacity = "0.3";
 
-        const card = currentPool[currentIndex];
-        imgElement.src = "";
-        // 3. CAMBIO CLAVE: Usar la ruta de tu servidor propio en Render
-        // const newSrc = `/api/proxy-image?file=${card.file}`;
+        setTimeout(() => {
+            const imgElement = document.getElementById('mainImg');
+            imgElement.style.opacity = "0.3";
 
-        imgElement.src = "img/" + card.file + "?v=" + new Date().getTime();
-        imgElement.style.opacity = "1";
-        
-        imgElement.onload = () => imgElement.style.opacity = "1";
-        imgElement.onerror = () => {
+            const card = currentPool[currentIndex];
+            imgElement.src = "";
+
+            if (!card) return; // pool vacío
+
+            imgElement.src = "img/" + card.file + "?v=" + new Date().getTime();
+            imgElement.onload = () => imgElement.style.opacity = "1";
+
+            imgElement.onerror = () => {
             console.error("No se encontró el archivo en la carpeta img/:", card.file);
         };
 
         document.getElementById('organName').innerText = card.name;
         document.getElementById('categoryName').innerText = card.cat;
         document.getElementById('techName').innerText = "Técnica: " + card.tec;
+        }, 350);
+        // CAMBIO CLAVE: Usar la ruta de tu servidor propio en Render
+        // const newSrc = `/api/proxy-image?file=${card.file}`;
     }
 
     function nextCard() {
@@ -174,10 +224,66 @@
     }
 
     function submitResult(isCorrect) {
-        if(isCorrect) { stats.c++; stats.r++; } 
-        else { stats.w++; stats.r = 0; }
+        const currentCard = currentPool[currentIndex];
+        clearInterval(timerInterval); // Parar timer al responder
+        if (isCorrect) {
+            stats.c++;
+            stats.r++;
+            playSound('correct');
+
+            // Tracking de logros
+            if (!sessionProgress[currentCard.cat]) sessionProgress[currentCard.cat] = new Set();
+            sessionProgress[currentCard.cat].add(currentCard.file);
+            
+            checkMedals(currentCard.cat);
+
+            // Si estamos en modo fallos y acierta, lo eliminamos de la lista de pendientes
+            if (isMistakeMode) {
+                mistakesPool = mistakesPool.filter(item => item.file !== currentCard.file);
+            }
+        } else {
+            stats.w++;
+            stats.r = 0;
+            playSound('wrong');
+
+            // Si falla una, reseteamos el progreso de medalla de ese sistema para esta sesión
+            if (sessionProgress[currentCard.cat]) sessionProgress[currentCard.cat].clear();
+
+            // Si falla, lo añadimos a la lista de fallos (si no estaba ya)
+            if (!mistakesPool.some(item => item.file === currentCard.file)) {
+                mistakesPool.push(currentCard);
+            }
+        }
         updateStatsUI();
-        nextCard();
+        // Lógica de navegación tras responder
+        if (isMistakeMode) {
+            // En modo fallos, eliminamos la carta actual del pool que estamos viendo
+            currentPool.splice(currentIndex, 1); 
+            if (currentPool.length === 0) {
+                alert("¡Felicidades! Has completado todos tus fallos pendientes.");
+                isMistakeMode = false;
+                resetAndLoad(); // Volver al mazo normal
+            } else {
+                if (currentIndex >= currentPool.length) currentIndex = 0;
+                displayCard();
+            }
+        } else {
+            nextCard();
+        }
+    }
+
+    function filterByMistakes() {
+        if (mistakesPool.length === 0) {
+            alert("¡No tienes fallos acumulados!");
+            return;
+        }
+        if (confirm(`Repasarás ${mistakesPool.length} fallos. Si aciertas, saldrán de la lista.`)) {
+            isMistakeMode = true;
+            currentPool = [...mistakesPool];
+            currentPool.sort(() => Math.random() - 0.5);
+            currentIndex = 0;
+            displayCard();
+        }
     }
 
     function updateStatsUI() {
@@ -188,7 +294,73 @@
         document.getElementById('s-p').innerText = total === 0 ? "0%" : Math.round((stats.c / total) * 100) + "%";
     }
 
+    // --- MODO EXAMEN ---
+    function toggleExamMode() {
+        isExamMode = !isExamMode; // Alterna el estado booleano
+        
+        const controls = document.querySelector('.exam-controls');
+        const statusText = document.getElementById('examStatus');
+        const timerContainer = document.getElementById('timer-bar-container');
+
+        if (isExamMode) {
+            controls.classList.add('exam-on');
+            statusText.innerText = "ON";
+            timerContainer.style.display = 'block';
+        } else {
+            controls.classList.remove('exam-on');
+            statusText.innerText = "OFF";
+            timerContainer.style.display = 'none';
+            clearInterval(timerInterval);
+        }
+        
+        resetAndLoad(); // Reinicia el mazo para aplicar el modo
+    }
+
+    function startTimer() {
+        if (!isExamMode) return;
+        clearInterval(timerInterval);
+        timeLeft = 10;
+        updateTimerUI();
+        
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerUI();
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById('innerCard').classList.add('flipped'); // Se gira sola
+            }
+        }, 1000);
+    }
+
+    function updateTimerUI() {
+        const bar = document.getElementById('timer-bar');
+        bar.style.width = (timeLeft * 10) + "%";
+        bar.style.background = timeLeft < 4 ? "var(--wrong)" : "var(--blue)";
+    }
+
+    function checkMedals(category) {
+        const totalInSystem = DATA.filter(d => d.cat === category).length;
+        const userCount = sessionProgress[category].size;
+        
+        if (userCount === totalInSystem) {
+            const medalId = `medal-${category.replace(/\s+/g, '')}`;
+            const medalEl = document.getElementById(medalId);
+            if (medalEl && !medalEl.classList.contains('unlocked')) {
+                medalEl.classList.add('unlocked');
+                medalEl.setAttribute('data-info', `🎉 ¡Has acertado todas las del sistema ${category}!`);
+            }
+        }
+    }
+
+    // Actualiza displayCard para iniciar el timer
+    const originalDisplayCard = displayCard;
+    displayCard = function() {
+        originalDisplayCard();
+        if (isExamMode) startTimer();
+    };
+
     // Carga inicial
 window.onload = () => {
     resetAndLoad();
+    initMedals();
 };

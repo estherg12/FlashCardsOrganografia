@@ -174,6 +174,13 @@
             padding: 12px;
             border-radius: 14px;
             text-align: center;
+            transition: all 0.2s ease; /* Añadir transición */
+        }
+
+        .stat-card:hover {
+            background: rgba(51, 65, 85, 0.8);
+            transform: translateY(-3px);
+            border-color: var(--blue);
         }
 
         .stat-val { display: block; font-size: 1.2rem; font-weight: bold; }
@@ -203,3 +210,111 @@
             height: 100%; 
             background: var(--accent); 
             transition: width 0.3s; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .repaso-active .flashcard {
+            border: 2px solid var(--wrong);
+        }
+
+        #medals-container {
+            position: fixed;
+            left: 40px; /* Margen lateral aumentado */
+            top: 50%;
+            transform: translateY(-50%);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+            gap: 15px;
+            z-index: 100;
+            max-width: 250px; /* Limita el ancho para que no choque con la carta */
+        }
+
+        .medal {
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            filter: grayscale(1) opacity(0.3);
+            transition: all 0.5s ease;
+            cursor: help;
+            background: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #334155;
+        }
+
+        .medal.unlocked {
+            filter: grayscale(0) opacity(1);
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        /* Tooltip de Medalla */
+        .medal:hover::after {
+            content: attr(data-info);
+            position: absolute;
+            left: 70px;
+            background: #000;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+        }
+
+        /* Modo Examen y Timer */
+        .exam-controls {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+
+        #timer-bar-container {
+            width: 200px;
+            height: 8px;
+            background: #334155;
+            border-radius: 4px;
+            display: none; /* Solo se ve en modo examen */
+        }
+
+        #timer-bar {
+            width: 100%;
+            height: 100%;
+            background: var(--blue);
+            border-radius: 4px;
+            transition: width 1s linear;
+        }
+
+        .exam-controls:hover {
+            border-color: var(--blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        #examStatus {
+            color: var(--secondary);
+            transition: color 0.3s;
+        }
+
+        /* Estado ON cuando está activo */
+        .exam-on #examStatus {
+            color: var(--blue);
+        }
+
+        /* Responsivo: Si la pantalla es pequeña, movemos las medallas abajo */
+        @media (max-width: 1100px) {
+            #medals-container {
+                position: static;
+                transform: none;
+                margin: 20px auto;
+                max-width: none;
+                grid-template-columns: repeat(6, 1fr); /* Más columnas si están abajo */
+            }
+        }
